@@ -87,7 +87,7 @@ public class DiagModel extends DefaultTableModel{
                     }
                 }
                 catch (Exception e) {
-                    //repo.reportErr(e);
+                    repo.reportErr(e);
                 }
             }
         }
