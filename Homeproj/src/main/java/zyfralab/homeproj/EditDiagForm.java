@@ -293,18 +293,18 @@ public class EditDiagForm extends javax.swing.JFrame {
     
 // Methods to work with Errors Table    
     private void errCodesTbl_Init() {
-        errTblModel = new ErrCodesModel(repo);
-        errTblModel.initModel();
+   //     errTblModel = new ErrCodesModel(repo);
+   //     errTblModel.initModel();
         tblErrCodes.setAutoCreateColumnsFromModel(false);
-        tblErrCodes.setModel(errTblModel);             
+   //     tblErrCodes.setModel(errTblModel);             
     }    
   
     /**
      * Purpose: add new error in a new row
      */
     private void errCodesTbl_AddErr() {
-        errTblModel.addErr();
-        errTblModel.fireTableDataChanged();
+    //    errTblModel.addErr();
+    //    errTblModel.fireTableDataChanged();
         errCodesTbl_Set2Last();     
     }
     
@@ -324,7 +324,7 @@ public class EditDiagForm extends javax.swing.JFrame {
 // Methods to work with Diagnoses Table
     private void diagTbl_Init() {
         // Setting model
-        diagTblModel = new DiagModel(repo);
+    //    diagTblModel = new DiagModel(repo);
         diagTblModel.initModel();
         tblDiag.setAutoCreateColumnsFromModel(false);
         tblDiag.setModel(diagTblModel);
@@ -332,19 +332,19 @@ public class EditDiagForm extends javax.swing.JFrame {
         // Adding combo for Errors column
         TableColumn errCol = tblDiag.getColumnModel().getColumn(2);
         JComboBox errCombo = new JComboBox();
-        ErrComboModel edcm = new ErrComboModel(repo);
-        edcm.initModel();
-        errCombo.setModel(edcm);
+    //    ErrComboModel edcm = new ErrComboModel(repo);
+    //    edcm.initModel();
+    //    errCombo.setModel(edcm);
         errCol.setCellEditor(new DefaultCellEditor(errCombo));
         
-        if (errTblModel!=null)  
-            errTblModel.addTableModelListener(edcm.getErrTblListener());
+     //   if (errTblModel!=null)  
+     //       errTblModel.addTableModelListener(edcm.getErrTblListener());
         
         // Adding combo for Method Type column
         TableColumn chkCol = tblDiag.getColumnModel().getColumn(3);
         JComboBox chkCombo = new JComboBox();
         for (int i=1; i<=3; i++) 
-            chkCombo.addItem(new MethComboItem(i));
+     //       chkCombo.addItem(new MethComboItem(i));
         chkCol.setCellEditor(new DefaultCellEditor(chkCombo));        
         
         // Adding sorter
@@ -378,13 +378,13 @@ public class EditDiagForm extends javax.swing.JFrame {
 
 // Methods to work with Err Combo Box
     private void errCmb_Init() {
-        errCmbModel = new ErrComboModel(repo);
-        errCmbModel.initModel();
-        cmbErrCodes.setModel(errCmbModel);
-        
-        if (errTblModel!=null)  
-            errTblModel.addTableModelListener(errCmbModel.getErrTblListener());
-                
+/*       errCmbModel = new ErrComboModel(repo);
+       errCmbModel.initModel();
+       cmbErrCodes.setModel(errCmbModel);
+
+       if (errTblModel!=null)  
+             errTblModel.addTableModelListener(errCmbModel.getErrTblListener()); */
+
         
     }        
     

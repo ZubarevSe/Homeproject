@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doc2.managers;
+// package doc2.managers;
 
-import javax.swing.ImageIcon;
+ import javax.swing.ImageIcon;
+ import javax.swing.*;
+
+import  zyfralab.homeproj.Array;
 
 /**
  *
@@ -13,16 +16,16 @@ import javax.swing.ImageIcon;
  */
 public class EditTCForm extends javax.swing.JFrame {
     private Reporter repo = null;
-    private ActModel atModel = null;
+    private Array atModel = null;
     private TCKETypeModel tckeModel = null;
     
     /**
      * Creates new form EditTCForm
      */
-    public EditTCForm(Reporter rep) {
+    public EditTCForm(/*Reporter rep*/) {
         initComponents();
-        
-        repo = rep;
+     //   repo = rep;
+        actTbl_Init();
     }
 
     /**
@@ -208,29 +211,40 @@ public class EditTCForm extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        ImageIcon img = new ImageIcon("C:/Users/smzubarev/Documents/NetBeansProjects/Doc2/src/main/resources/icons8.png");
+       /* ImageIcon img = new ImageIcon("C:/Users/smzubarev/Documents/NetBeansProjects/Doc2/src/main/resources/icons8.png");
         setIconImage(img.getImage());
 
         actTbl_Init();
-        tcKETypeTbl_Init();
+        tcKETypeTbl_Init(); */
 
     }//GEN-LAST:event_formWindowOpened
     
     // Methods to work with Actions table
-    private void actTbl_Init() {
-        atModel = new ActModel(repo);
-        atModel.initModel();
-        tblActions.setAutoCreateColumnsFromModel(false);
-        tblActions.setModel(atModel);        
+    private void actTbl_Init()
+    {
+         atModel = new Array(); //(repo)
+         atModel.initModel(tblKETypeTC,jTable1,tblActions);
+//       tblActions.setAutoCreateColumnsFromModel(false);
+//       tblActions.setModel(atModel);        
     }
-    
+/*   
     private void tcKETypeTbl_Init() {
         tckeModel = new TCKETypeModel(repo);
         tckeModel.initModel();
         tblKETypeTC.setAutoCreateColumnsFromModel(false);
         tblKETypeTC.setModel(tckeModel);                
     }
-
+*/
+    public static void main(String x[])
+    {
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                new EditTCForm().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

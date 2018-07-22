@@ -3,26 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doc2.managers;
+/* package doc2.managers;
 
 import doc2.data.DBStoreAPI;
 import doc2.data.ErrComboItem;
-import doc2.data.MethComboItem;
+import doc2.data.MethComboItem; 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+import java.sql.ResultSetMetaData; */
+
+import zyfralab.homeproj.Array;
 import java.util.ArrayList;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
+import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author smzubarev
  */
-public class TCKETypeModel extends DefaultTableModel{
+public class TCKETypeModel extends DefaultTableModel
+{
         ArrayList columnNames = null;
         ArrayList rows = null;
-        DBStoreAPI dbStore = null;
+        Array dbStore = null;
         Reporter repo = null;
         
         public class TCKEListener implements TableModelListener{
@@ -49,45 +51,41 @@ public class TCKETypeModel extends DefaultTableModel{
                 try {
                     String colName = getColumnName(col);
                     data = getValueAt(row, col);
-                    id = (int)getValueAt(row, 0);
-                    intVal = (int)data;
-                    dbStore.setTCKEDB(id, colName, intVal);
-/*
+                  
+
                     switch (col) {                        
                         case 1:
                         case 4:
                             strVal = (String) data;
-                            dbStore.setDiagDB(diagID, colName, strVal);
+                     //       dbStore.setDiagDB(diagID, colName, strVal);
                             break;
 
                         case 2:    
-                            ErrComboItem eci = (ErrComboItem)data;
-                            intVal = eci.getValue();
-                            dbStore.setDiagDB(diagID, colName, intVal);
+                         
+                       //     dbStore.setDiagDB(diagID, colName, intVal);
                             break;
                             
                         case 3:
-                            MethComboItem cmi = (MethComboItem)data;
-                            intVal = cmi.getValue();
-                            dbStore.setDiagDB(diagID, colName, intVal);
+                            
+                       //     dbStore.setDiagDB(diagID, colName, intVal);
                             break;
                             
                         case 5:
                             flVal = (float)data;
-                            dbStore.setDiagDB(diagID, colName, flVal);
+                      //      dbStore.setDiagDB(diagID, colName, flVal);
                             break;          
                             
                         case 6:
                             boolVal = (Boolean)data;
-                            dbStore.setDiagDB(diagID, colName, boolVal);
+                        //    dbStore.setDiagDB(diagID, colName, boolVal);
                             break;          
                             
                         case 7:   
                             intVal = (int)data;
-                            dbStore.setDiagDB(diagID, colName, intVal);
+                        //    dbStore.setDiagDB(diagID, colName, intVal);
                             break;                            
                     }
-*/
+
 
                 }                                        
                 catch (Exception e) {
@@ -98,8 +96,8 @@ public class TCKETypeModel extends DefaultTableModel{
         
         public TCKETypeModel(Reporter rep) {
             repo = rep;
-            dbStore = new DBStoreAPI(repo);
-            dbStore.openConn();
+      //      dbStore = new DBStoreAPI(repo);
+      //      dbStore.openConn();
         }
         
         public void initModel() {
@@ -115,32 +113,31 @@ public class TCKETypeModel extends DefaultTableModel{
             }
         }
          
-        public void updateTable() {
-                       
+        public void updateTable() {       
             try {
-                ResultSet rs = dbStore.getTCKEDB();
-                ResultSetMetaData metaData = rs.getMetaData();
-                int numberOfColumns = metaData.getColumnCount();
+               // ResultSet rs = dbStore.getTCKEDB();
+               // ResultSetMetaData metaData = rs.getMetaData();
+                int numberOfColumns = 1; //metaData.getColumnCount();
                 if (columnNames==null) 
                     columnNames = new ArrayList();
 
                 // Get the column names
                 for (int column = 0; column < numberOfColumns; column++) {
-                    columnNames.add(metaData.getColumnLabel(column + 1));
+                  //  columnNames.add(metaData.getColumnLabel(column + 1));
                 }
 
                 // Get all rows.
                 if (rows==null) 
                     rows = new ArrayList();
                 
-                addRows(rs, numberOfColumns);                
+               // addRows(rs, numberOfColumns);                
                 
             }
             catch (Exception e) {
                 repo.reportErr(e);
-                //System.exit(0);
+               // System.exit(0);
             }        
-                                    
+                                  
         }
  
         @Override
@@ -210,19 +207,20 @@ public class TCKETypeModel extends DefaultTableModel{
         }
         
         public void addDiag() {
-            ResultSet rs = null;            
+           /* ResultSet rs = null;            
             rs = dbStore.addDiag();
-            addRows(rs, 8);
+            addRows(rs, 8); */
         }
         
-        public void addRows(ResultSet rs, int colCount) {           
+  /*      public void addRows(ResultSet rs, int colCount)
+        {           
             try {
                 if (rs==null)
                     return;
                 while (rs.next()) {
                     ArrayList newRow = new ArrayList();
                     for (int i=1; i<=colCount; i++) {
-/*
+
                         if (i==3) {
                             int errID = rs.getInt(i);
                             ErrComboItem eci = dbStore.getErrCmbItem(errID);
@@ -234,10 +232,10 @@ public class TCKETypeModel extends DefaultTableModel{
                             newRow.add(cmi);
                         }
                         else {
-*/
+
                             Object obj = rs.getObject(i);
                             newRow.add(obj);
-//                        }
+                        }
                     }
                     rows.add(newRow);  
                 }            
@@ -245,6 +243,6 @@ public class TCKETypeModel extends DefaultTableModel{
             catch (Exception e) {
                 repo.reportErr(e);
             }
-        }
+        } */
 }
 
