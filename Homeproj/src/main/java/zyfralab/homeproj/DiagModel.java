@@ -23,7 +23,7 @@ public class DiagModel extends DefaultTableModel{
         ArrayList columnNames = null;
         ArrayList rows = null;
         //DBStoreAPI dbStore = null;
-        //Reporter repo = null;
+        Reporter repo = null;
         
         public class DiagListener implements TableModelListener{
             
@@ -92,8 +92,8 @@ public class DiagModel extends DefaultTableModel{
             }
         }
         
-        public DiagModel() { //Reporter rep) {
-            //repo = rep;
+        public DiagModel(Reporter rep) {
+            repo = rep;
             //dbStore = new DBStoreAPI(repo);
             //dbStore.openConn();
         }
@@ -107,7 +107,7 @@ public class DiagModel extends DefaultTableModel{
                                                 
             }
             catch (Exception e) {
-                //repo.reportErr(e);
+                repo.reportErr(e);
             }
         }
          
@@ -133,7 +133,7 @@ public class DiagModel extends DefaultTableModel{
                 
             }
             catch (Exception e) {
-                //repo.reportErr(e);
+                repo.reportErr(e);
                 //System.exit(0);
             }        
                                     
@@ -185,7 +185,7 @@ public class DiagModel extends DefaultTableModel{
                 result = curRow.get(columnIndex);                   
             }
             catch (Exception e) {
-                //repo.reportErr(e);
+                repo.reportErr(e);
             }            
             return result;  
         }
@@ -237,7 +237,7 @@ public class DiagModel extends DefaultTableModel{
                 }            
             }
             catch (Exception e) {
-                //repo.reportErr(e);
+                repo.reportErr(e);
             }
         }
     
