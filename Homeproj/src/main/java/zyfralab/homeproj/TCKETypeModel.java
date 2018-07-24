@@ -89,27 +89,27 @@ public class TCKETypeModel extends DefaultTableModel
 
                 }                                        
                 catch (Exception e) {
-                    repo.reportErr(e);
+                       repo.reportErr(e);
                 }
             }
         }
         
         public TCKETypeModel(Reporter rep) {
-            repo = rep;
+              repo = rep;
       //      dbStore = new DBStoreAPI(repo);
       //      dbStore.openConn();
+            dbStore = new Array();
         }
         
         public void initModel() {
             try {
-                updateTable();
-                               
+                updateTable();                             
                 TCKEListener tckeLis = new TCKEListener(); 
                 addTableModelListener(tckeLis);
                                                 
             }
             catch (Exception e) {
-                repo.reportErr(e);
+               repo.reportErr(e);
             }
         }
          
@@ -117,20 +117,19 @@ public class TCKETypeModel extends DefaultTableModel
             try {
                // ResultSet rs = dbStore.getTCKEDB();
                // ResultSetMetaData metaData = rs.getMetaData();
-                int numberOfColumns = 1; //metaData.getColumnCount();
+                int numberOfColumns =  dbStore.columns(); //metaData.getColumnCount();
                 if (columnNames==null) 
                     columnNames = new ArrayList();
 
                 // Get the column names
                 for (int column = 0; column < numberOfColumns; column++) {
-                  //  columnNames.add(metaData.getColumnLabel(column + 1));
+                    // columnNames.add(metaData.getColumnLabel(column + 1));
                 }
 
                 // Get all rows.
                 if (rows==null) 
-                    rows = new ArrayList();
-                
-               // addRows(rs, numberOfColumns);                
+                    rows = new ArrayList();      
+                addRows(numberOfColumns);                
                 
             }
             catch (Exception e) {
@@ -212,30 +211,20 @@ public class TCKETypeModel extends DefaultTableModel
             addRows(rs, 8); */
         }
         
-  /*      public void addRows(ResultSet rs, int colCount)
+        public void addRows(/*ResultSet rs,*/ int colCount)
         {           
             try {
-                if (rs==null)
-                    return;
-                while (rs.next()) {
+                if (dbStore==null)
+                    return; 
+                while (dbStore.next())
+                {
                     ArrayList newRow = new ArrayList();
-                    for (int i=1; i<=colCount; i++) {
-
-                        if (i==3) {
-                            int errID = rs.getInt(i);
-                            ErrComboItem eci = dbStore.getErrCmbItem(errID);
-                            newRow.add(eci);
-                        }                        
-                        else if (i==4) {
-                            int value = rs.getInt(i);
-                            MethComboItem cmi = new MethComboItem(value);
-                            newRow.add(cmi);
-                        }
-                        else {
-
-                            Object obj = rs.getObject(i);
+                    for (int i=0; i<colCount; i++)
+                    {
+                           
+                            Object obj = dbStore.getObject(i);
+                            System.out.println(obj);
                             newRow.add(obj);
-                        }
                     }
                     rows.add(newRow);  
                 }            
@@ -243,6 +232,6 @@ public class TCKETypeModel extends DefaultTableModel
             catch (Exception e) {
                 repo.reportErr(e);
             }
-        } */
+        } 
 }
 
