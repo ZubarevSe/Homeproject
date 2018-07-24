@@ -98,7 +98,7 @@ public class TCKETypeModel extends DefaultTableModel
               repo = rep;
       //      dbStore = new DBStoreAPI(repo);
       //      dbStore.openConn();
-            dbStore = new Array();
+              dbStore = new Array();
         }
         
         public void initModel() {

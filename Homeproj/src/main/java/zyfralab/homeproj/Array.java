@@ -38,7 +38,7 @@ public class Array
                     i++;
                 }
             } while(k != -1);  
-            k = 0;
+           
             
             
         }catch(IOException e){}
