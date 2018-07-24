@@ -14,24 +14,28 @@ import java.io.*;
 
 public class Array 
 {
-    private String table1[][] = new String[4][3];
-  
+    private int table1[][] = new int[4][3];
     private int count = -1;
     
     public Array()
     {
-        for (int i = 0;i < 4;++i)        
-            for (int j = 0;j < 3;++j)
-                table1[i][j] = "";
+        
         
         try(FileInputStream tblKETypeTC = new FileInputStream("Connect Techcards to KE Type.txt"))
         {
             int k;
             int i = 0,j = 0;
+            String str = "";
             do { 
                 k = tblKETypeTC.read();
-                if (k != -1 && k != 32 && (char)k != '\r' && (char)k != '\n') table1[i][j] += (char)k;
-                else if (k == 32 || (char)k == '\r') j++;
+                if (k != -1 && k != 32 && (char)k != '\r' && (char)k != '\n') str += (char)k;
+                else if (k == 32 || (char)k == '\r' || k == -1) 
+                {
+                    Integer x = new Integer(str);
+                    str = "";
+                    table1[i][j] = x;
+                    j++;
+                }
                 if (j == 3) 
                 {
                     j = 0;
@@ -61,5 +65,10 @@ public class Array
     public Object getObject(int index)
     {
         return table1[count][index];
+    }
+    public void changeData(Object data,int i,int j)
+    {
+        table1[i][j] = (int)data;
+        System.out.println(data);
     }
 }

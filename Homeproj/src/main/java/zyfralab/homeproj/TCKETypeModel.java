@@ -27,7 +27,8 @@ public class TCKETypeModel extends DefaultTableModel
         Array dbStore = null;
         Reporter repo = null;
         
-        public class TCKEListener implements TableModelListener{
+        public class TCKEListener implements TableModelListener
+        {
             
             public TCKEListener() {
             }
@@ -36,10 +37,6 @@ public class TCKETypeModel extends DefaultTableModel
             public void tableChanged(TableModelEvent evt) {
                 String strVal = null;
                 Object data = null;
-                int id = 0;
-                int intVal = 0;
-                float flVal = 0;      
-                boolean boolVal = false;
                 int row = evt.getFirstRow();
                 int col = evt.getColumn();
                 
@@ -47,46 +44,14 @@ public class TCKETypeModel extends DefaultTableModel
                     col = 1;
                 if (row<0)
                     row = 0;
-
-                try {
+              
+                try 
+                {
                     String colName = getColumnName(col);
                     data = getValueAt(row, col);
-                  
-
-                    switch (col) {                        
-                        case 1:
-                        case 4:
-                            strVal = (String) data;
-                     //       dbStore.setDiagDB(diagID, colName, strVal);
-                            break;
-
-                        case 2:    
-                         
-                       //     dbStore.setDiagDB(diagID, colName, intVal);
-                            break;
-                            
-                        case 3:
-                            
-                       //     dbStore.setDiagDB(diagID, colName, intVal);
-                            break;
-                            
-                        case 5:
-                            flVal = (float)data;
-                      //      dbStore.setDiagDB(diagID, colName, flVal);
-                            break;          
-                            
-                        case 6:
-                            boolVal = (Boolean)data;
-                        //    dbStore.setDiagDB(diagID, colName, boolVal);
-                            break;          
-                            
-                        case 7:   
-                            intVal = (int)data;
-                        //    dbStore.setDiagDB(diagID, colName, intVal);
-                            break;                            
-                    }
-
-
+                    
+                    
+                    dbStore.changeData(data,col,row);
                 }                                        
                 catch (Exception e) {
                        repo.reportErr(e);
@@ -128,7 +93,8 @@ public class TCKETypeModel extends DefaultTableModel
 
                 // Get all rows.
                 if (rows==null) 
-                    rows = new ArrayList();      
+                    rows = new ArrayList();  
+                
                 addRows(numberOfColumns);                
                 
             }
@@ -171,8 +137,9 @@ public class TCKETypeModel extends DefaultTableModel
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             Object result = null; 
-            
-            try {
+            System.out.println(1001);
+            try
+            {
                 Object curObj = null;
 
                 if (rows==null)
@@ -180,9 +147,11 @@ public class TCKETypeModel extends DefaultTableModel
                 
                 if (columnIndex<0)
                     columnIndex = 0;
-
+                
                 ArrayList curRow = (ArrayList) rows.get(rowIndex);
-                result = curRow.get(columnIndex);                   
+                  
+                result = curRow.get(columnIndex); 
+                
             }
             catch (Exception e) {
                 repo.reportErr(e);
@@ -223,7 +192,6 @@ public class TCKETypeModel extends DefaultTableModel
                     {
                            
                             Object obj = dbStore.getObject(i);
-                            System.out.println(obj);
                             newRow.add(obj);
                     }
                     rows.add(newRow);  
