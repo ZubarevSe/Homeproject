@@ -8,16 +8,18 @@
  import javax.swing.ImageIcon;
  import javax.swing.*;
 
-import  zyfralab.homeproj.Array;
+import  zyfralab.homeproj.*;
 
 /**
  *
  * @author smzubarev
  */
 public class EditTCForm extends javax.swing.JFrame {
+   
     private Reporter repo = null;
     private Array atModel = null;
     private TCKETypeModel tckeModel = null;
+    private TCEditDiagModel tcdeModel = null;
     
     /**
      * Creates new form EditTCForm
@@ -44,7 +46,7 @@ public class EditTCForm extends javax.swing.JFrame {
         tblKETypeTC = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblEditDiag = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
 
         setLocation(new java.awt.Point(1, 150));
@@ -129,7 +131,7 @@ public class EditTCForm extends javax.swing.JFrame {
 
         jLabel2.setText("Connect Techcards to KE Type");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblEditDiag.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -155,14 +157,14 @@ public class EditTCForm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(45);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(45);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(45);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(95);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(95);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(95);
+        jScrollPane3.setViewportView(tblEditDiag);
+        if (tblEditDiag.getColumnModel().getColumnCount() > 0) {
+            tblEditDiag.getColumnModel().getColumn(0).setMinWidth(45);
+            tblEditDiag.getColumnModel().getColumn(0).setPreferredWidth(45);
+            tblEditDiag.getColumnModel().getColumn(0).setMaxWidth(45);
+            tblEditDiag.getColumnModel().getColumn(1).setMinWidth(95);
+            tblEditDiag.getColumnModel().getColumn(1).setPreferredWidth(95);
+            tblEditDiag.getColumnModel().getColumn(1).setMaxWidth(95);
         }
 
         jLabel3.setText("Edit Techcards Diagnoses");
@@ -216,7 +218,7 @@ public class EditTCForm extends javax.swing.JFrame {
 
         actTbl_Init();
         tcKETypeTbl_Init(); 
-
+        tblEditDiag_Init();
     }//GEN-LAST:event_formWindowOpened
     
     // Methods to work with Actions table
@@ -233,6 +235,13 @@ public class EditTCForm extends javax.swing.JFrame {
         tckeModel.initModel();
         tblKETypeTC.setAutoCreateColumnsFromModel(false);
         tblKETypeTC.setModel(tckeModel);                
+    }
+    private void tblEditDiag_Init()
+    {
+        tcdeModel = new TCEditDiagModel(repo);
+        tcdeModel.initModel();
+        tblEditDiag.setAutoCreateColumnsFromModel(false);
+        tblEditDiag.setModel(tcdeModel);  
     }
 
     public static void main(String x[])
@@ -253,8 +262,8 @@ public class EditTCForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable tblActions;
+    private javax.swing.JTable tblEditDiag;
     private javax.swing.JTable tblKETypeTC;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,6 +16,7 @@ import java.util.*;
 public class Array 
 {
     private List<ArrayList> table1 = new ArrayList();
+    private List<ArrayList> table2 = new ArrayList();
     private int count = -1;
     
     public Array()
@@ -51,13 +52,55 @@ public class Array
             
             
         }catch(IOException e){}
+        
+         try(FileInputStream tblEditDiag = new FileInputStream("Edit Techcards Diagnoses.txt"))
+        {
+            int k;
+            int i = 0,j = 0;
+            ArrayList table2_2 = new ArrayList();
+            String str = "";
+            do { 
+                k = tblEditDiag.read();
+                if (k != -1 && k != 32 && (char)k != '\r' && (char)k != '\n') str += (char)k;
+                else if (k == 32 || (char)k == '\r' || k == -1) 
+                {
+                    if (j != 2)
+                    {
+                        Integer x = new Integer(str);
+                        table2_2.add(x);
+                    }
+                    else table2_2.add(str);
+                    str = "";
+                    j++;
+                }
+                if (j == 3) 
+                {
+                    ArrayList table2_3 = new ArrayList(table2_2);
+                    table2.add(table2_3);
+                    table2_2.clear();
+                    j = 0;
+                    i++;
+                }
+            } while(k != -1);  
+           
+            
+            
+        }catch(IOException e){}
        
     }
-    public int columns()
+    public int getTCKEDB_columns()
     {
         return 3;
     }
-    public int rows()
+    public int getTCKEDB_rows()
+    {
+        return 4;
+    }
+    public int getEDDB_columns()
+    {
+        return 3;
+    }
+    public int getEDDB_rows()
     {
         return 4;
     }
@@ -65,13 +108,18 @@ public class Array
     {
         count++;
         if (count < 4) return true;
+        count = -1;
         return false;
     }
-    public Object getObject(int index)
+    public Object TCKEDB_getObject(int index)
     {
         return table1.get(count).get(index);
     }
-    public void changeData(Object data,int i,int j)
+    public Object TCEDDB_getObject(int index)
+    {
+        return table2.get(count).get(index);
+    }
+    public void TCKEDB_changeData(Object data,int i,int j)
     {
         table1.get(i).set(j, data);
         System.out.println(table1.get(i).get(j));

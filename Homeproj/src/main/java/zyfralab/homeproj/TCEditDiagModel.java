@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package zyfralab.homeproj;
+
 /* package doc2.managers;
 
 import doc2.data.DBStoreAPI;
@@ -16,21 +18,17 @@ import java.util.ArrayList;
 import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author smzubarev
- */
-public class TCKETypeModel extends DefaultTableModel
+public class TCEditDiagModel extends DefaultTableModel 
 {
         ArrayList columnNames = null;
         ArrayList rows = null;
         Array dbStore = null;
         Reporter repo = null;
         
-        public class TCKEListener implements TableModelListener
+        public class TCEDListener implements TableModelListener
         {
             
-            public TCKEListener() {
+            public TCEDListener() {
             }
             
             @Override
@@ -51,7 +49,7 @@ public class TCKETypeModel extends DefaultTableModel
                     data = getValueAt(row, col);
             
                     
-                    dbStore.TCKEDB_changeData(data,col,row);
+                 //   dbStore.TCKEDB_changeData(data,col,row);
                 }                                        
                 catch (Exception e) {
                        repo.reportErr(e);
@@ -59,7 +57,7 @@ public class TCKETypeModel extends DefaultTableModel
             }
         }
         
-        public TCKETypeModel(Reporter rep) {
+        public TCEditDiagModel(Reporter rep) {
               repo = rep;
       //      dbStore = new DBStoreAPI(repo);
       //      dbStore.openConn();
@@ -69,7 +67,7 @@ public class TCKETypeModel extends DefaultTableModel
         public void initModel() {
             try {
                 updateTable();                             
-                TCKEListener tckeLis = new TCKEListener(); 
+                TCEDListener tckeLis = new TCEDListener(); 
                 addTableModelListener(tckeLis);
                                                 
             }
@@ -82,7 +80,7 @@ public class TCKETypeModel extends DefaultTableModel
             try {
                // ResultSet rs = dbStore.getTCKEDB();
                // ResultSetMetaData metaData = rs.getMetaData();
-                int numberOfColumns = dbStore.getTCKEDB_columns(); //metaData.getColumnCount();
+                int numberOfColumns = dbStore.getEDDB_columns(); //metaData.getColumnCount();
                 if (columnNames==null) 
                     columnNames = new ArrayList();
 
@@ -191,7 +189,7 @@ public class TCKETypeModel extends DefaultTableModel
                     for (int i=0; i<colCount; i++)
                     {
                            
-                            Object obj = dbStore.TCKEDB_getObject(i);
+                            Object obj = dbStore.TCEDDB_getObject(i);
                             newRow.add(obj);
                     }
                     rows.add(newRow);  
@@ -201,5 +199,7 @@ public class TCKETypeModel extends DefaultTableModel
                 repo.reportErr(e);
             }
         } 
+    
+    
+    
 }
-
