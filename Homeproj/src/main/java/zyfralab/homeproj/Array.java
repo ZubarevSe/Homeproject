@@ -6,6 +6,7 @@
 package zyfralab.homeproj;
 
 import java.io.*;
+import java.util.*;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.io.*;
 
 public class Array 
 {
-    private int table1[][] = new int[4][3];
+    private List<ArrayList> table1 = new ArrayList();
     private int count = -1;
     
     public Array()
@@ -25,6 +26,7 @@ public class Array
         {
             int k;
             int i = 0,j = 0;
+            ArrayList table1_2 = new ArrayList();
             String str = "";
             do { 
                 k = tblKETypeTC.read();
@@ -33,11 +35,14 @@ public class Array
                 {
                     Integer x = new Integer(str);
                     str = "";
-                    table1[i][j] = x;
+                    table1_2.add(x);
                     j++;
                 }
                 if (j == 3) 
                 {
+                    ArrayList table1_3 = new ArrayList(table1_2);
+                    table1.add(table1_3);
+                    table1_2.clear();
                     j = 0;
                     i++;
                 }
@@ -64,11 +69,11 @@ public class Array
     }
     public Object getObject(int index)
     {
-        return table1[count][index];
+        return table1.get(count).get(index);
     }
     public void changeData(Object data,int i,int j)
     {
-        table1[i][j] = (int)data;
-        System.out.println(data);
+        table1.get(i).set(j, data);
+        System.out.println(table1.get(i).get(j));
     }
 }

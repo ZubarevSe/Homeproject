@@ -47,9 +47,9 @@ public class TCKETypeModel extends DefaultTableModel
               
                 try 
                 {
-                    String colName = getColumnName(col);
+                  //  String colName = getColumnName(col);
                     data = getValueAt(row, col);
-                    
+            
                     
                     dbStore.changeData(data,col,row);
                 }                                        
@@ -82,7 +82,7 @@ public class TCKETypeModel extends DefaultTableModel
             try {
                // ResultSet rs = dbStore.getTCKEDB();
                // ResultSetMetaData metaData = rs.getMetaData();
-                int numberOfColumns =  dbStore.columns(); //metaData.getColumnCount();
+                int numberOfColumns = dbStore.columns(); //metaData.getColumnCount();
                 if (columnNames==null) 
                     columnNames = new ArrayList();
 
@@ -137,7 +137,7 @@ public class TCKETypeModel extends DefaultTableModel
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             Object result = null; 
-            System.out.println(1001);
+     
             try
             {
                 Object curObj = null;
