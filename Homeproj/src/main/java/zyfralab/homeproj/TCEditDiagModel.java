@@ -13,7 +13,7 @@ import doc2.data.MethComboItem;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData; */
 
-import zyfralab.homeproj.Array;
+
 import java.util.ArrayList;
 import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
@@ -49,7 +49,7 @@ public class TCEditDiagModel extends DefaultTableModel
                     data = getValueAt(row, col);
             
                     
-                 //   dbStore.TCKEDB_changeData(data,col,row);
+                    dbStore.TCEDDB_changeData(data,col,row);
                 }                                        
                 catch (Exception e) {
                        repo.reportErr(e);

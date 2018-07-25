@@ -9,7 +9,7 @@ package zyfralab.homeproj;
  import javax.swing.ImageIcon;
  import javax.swing.*;
 
-//import  zyfralab.homeproj.*; ЭТО НЕ НУЖНО ЕСЛИ Все одном package
+
 
 /**
  *
