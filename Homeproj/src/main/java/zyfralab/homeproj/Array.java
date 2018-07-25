@@ -122,11 +122,11 @@ public class Array
     public void TCKEDB_changeData(Object data,int i,int j)
     {
         table1.get(i).set(j, data);
-        System.out.println(table1.get(i).get(j));
+       // System.out.println(table1.get(i).get(j));
     }
      public void TCEDDB_changeData(Object data,int i,int j)
     {
         table2.get(i).set(j, data);
-        System.out.println(table2.get(i).get(j));
+       // System.out.println(table2.get(i).get(j));
     }
 }
