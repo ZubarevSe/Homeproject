@@ -1,4 +1,0 @@
-1111 2222 Some_data
-2222 3333 Some_data(2)
-3333 4444 Some_data(3)
-4444 5555 Some_data(4)
