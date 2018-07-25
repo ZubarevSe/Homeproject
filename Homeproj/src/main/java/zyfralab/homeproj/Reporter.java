@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 //package doc2.managers;
+package zyfralab.homeproj;
 
 import java.sql.Timestamp;
 //import org.slf4j.Logger;

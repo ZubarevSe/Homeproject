@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 // package doc2.managers;
+package zyfralab.homeproj;
 
  import javax.swing.ImageIcon;
  import javax.swing.*;
 
-import  zyfralab.homeproj.*;
+//import  zyfralab.homeproj.*; ЭТО НЕ НУЖНО ЕСЛИ Все одном package
 
 /**
  *

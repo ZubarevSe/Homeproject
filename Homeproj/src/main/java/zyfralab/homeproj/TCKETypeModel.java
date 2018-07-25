@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 /* package doc2.managers;
-
+package zyfralab.homeproj;
 import doc2.data.DBStoreAPI;
 import doc2.data.ErrComboItem;
 import doc2.data.MethComboItem; 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData; */
+
+package zyfralab.homeproj;
 
 import zyfralab.homeproj.Array;
 import java.util.ArrayList;

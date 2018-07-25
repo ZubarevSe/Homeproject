@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 //package doc2.managers;
+package zyfralab.homeproj;
 
 //import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 //import doc2.data.DBStoreAPI;

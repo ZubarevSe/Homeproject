@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 //package doc2.managers;
+package zyfralab.homeproj;
 
 //import doc2.data.DBStoreAPI;
 //import doc2.data.ErrComboItem;
