@@ -333,9 +333,9 @@ public class EditDiagForm extends javax.swing.JFrame {
         // Adding combo for Errors column
         TableColumn errCol = tblDiag.getColumnModel().getColumn(2);
         JComboBox errCombo = new JComboBox();
-    //    ErrComboModel edcm = new ErrComboModel(repo);
-    //    edcm.initModel();
-    //    errCombo.setModel(edcm);
+    //  ErrComboModel edcm = new ErrComboModel(repo);
+    //  edcm.initModel();
+    //  errCombo.setModel(edcm);
         errCol.setCellEditor(new DefaultCellEditor(errCombo));
         
      //   if (errTblModel!=null)  

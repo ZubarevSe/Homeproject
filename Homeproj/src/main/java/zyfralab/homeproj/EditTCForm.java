@@ -6,8 +6,11 @@
 // package doc2.managers;
 package zyfralab.homeproj;
 
+import javax.swing.table.TableColumn;
  import javax.swing.ImageIcon;
  import javax.swing.*;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 
 
@@ -17,6 +20,7 @@ package zyfralab.homeproj;
  */
 public class EditTCForm extends javax.swing.JFrame {
    
+    private TableRowSorter<TableModel> diagTblSorter;
     private Reporter repo = null;
     private TCActionModel atModel = null;
     private TCKETypeModel tckeModel = null;
@@ -49,6 +53,8 @@ public class EditTCForm extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblEditDiag = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        FilterLabel = new javax.swing.JLabel();
+        errCombo = new javax.swing.JComboBox<>();
 
         setLocation(new java.awt.Point(1, 150));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -134,20 +140,20 @@ public class EditTCForm extends javax.swing.JFrame {
 
         tblEditDiag.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Diag ID", "Description"
+                "ID", "Diag ID", "Description", "Err Code"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -170,6 +176,15 @@ public class EditTCForm extends javax.swing.JFrame {
 
         jLabel3.setText("Edit Techcards Diagnoses");
 
+        FilterLabel.setText("Filter by ErrCodes:");
+
+        errCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "smth", "smth(2)", "smth(3)", "smth(4)" }));
+        errCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                errComboActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -187,9 +202,12 @@ public class EditTCForm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(84, 84, 84)
+                                .addComponent(FilterLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(errCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,8 +215,10 @@ public class EditTCForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(6, 6, 6)
+                    .addComponent(jLabel3)
+                    .addComponent(FilterLabel)
+                    .addComponent(errCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
@@ -221,15 +241,20 @@ public class EditTCForm extends javax.swing.JFrame {
         tblEditDiag_Init();
         actTbl_Init();
     }//GEN-LAST:event_formWindowOpened
+
+    private void errComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_errComboActionPerformed
+        
+        String err = String.valueOf(errCombo.getSelectedItem());
+        
+        try {
+            diagTblSorter.setRowFilter(RowFilter.regexFilter(err));
+        } 
+        catch (Exception e){
+            repo.reportErr(e);
+        }
+    }//GEN-LAST:event_errComboActionPerformed
     
-    // Methods to work with Actions table
-    private void actTbl_Init()
-    {
-           atModel = new TCActionModel(repo);
-           atModel.initModel();
-           tblActions.setAutoCreateColumnsFromModel(false);
-           tblActions.setModel(atModel);        
-    }
+    
  
     private void tcKETypeTbl_Init()
     {
@@ -244,8 +269,35 @@ public class EditTCForm extends javax.swing.JFrame {
         tcdeModel.initModel();
         tblEditDiag.setAutoCreateColumnsFromModel(false);
         tblEditDiag.setModel(tcdeModel);  
+            
+        diagTblSorter = new TableRowSorter<TableModel>(tcdeModel);
+        tblEditDiag.setRowSorter(diagTblSorter);
     }
-
+    private void actTbl_Init()
+    {
+        atModel = new TCActionModel(repo);
+        atModel.initModel();
+        tblActions.setAutoCreateColumnsFromModel(false);
+        tblActions.setModel(atModel);        
+    }
+    
+   /* private void diagTbl_AddDiag()
+    {
+        tcdeModel.addDiag();
+        tcdeModel.fireTableDataChanged();
+        diagTbl_Set2Last();     
+    }
+    private void diagTbl_Set2Last() 
+    {
+        tblEditDiag.setCellSelectionEnabled(true);
+        int row = tblEditDiag.getRowCount()-1;
+        tblEditDiag.changeSelection(row, 1, false, false);
+//        tblEditDiag.requestFocus();
+        tblEditDiag.editCellAt(row, 1);
+        tblEditDiag.getEditorComponent().requestFocus();            
+        
+    }*/
+    
     public static void main(String x[])
     {
         SwingUtilities.invokeLater(new Runnable()
@@ -258,6 +310,8 @@ public class EditTCForm extends javax.swing.JFrame {
     } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel FilterLabel;
+    private javax.swing.JComboBox<String> errCombo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

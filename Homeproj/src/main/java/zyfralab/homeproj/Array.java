@@ -62,7 +62,7 @@ public class Array
                 if (k != -1 && k != 32 && (char)k != '\r' && (char)k != '\n') str += (char)k;
                 else if (k == 32 || (char)k == '\r' || k == -1) 
                 {
-                    if (j != 2)
+                    if (j == 0 && j == 1)
                     {
                         Integer x = new Integer(str);
                         table2_2.add(x);
@@ -71,7 +71,7 @@ public class Array
                     str = "";
                     j++;
                 }
-                if (j == 3) 
+                if (j == 4) 
                 {
                     ArrayList table2_3 = new ArrayList(table2_2);
                     table2.add(table2_3);
@@ -129,7 +129,7 @@ public class Array
     }
     public int getEDDB_columns()
     {
-        return 3;
+        return 4;
     }
     public int getEDDB_rows()
     {
