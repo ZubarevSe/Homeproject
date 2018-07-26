@@ -37,7 +37,7 @@ public class TCKETypeModel extends DefaultTableModel
             
             @Override
             public void tableChanged(TableModelEvent evt) {
-                String strVal = null;
+             // String strVal = null;
                 Object data = null;
                 int row = evt.getFirstRow();
                 int col = evt.getColumn();
@@ -51,9 +51,7 @@ public class TCKETypeModel extends DefaultTableModel
                 {
                   //  String colName = getColumnName(col);
                     data = getValueAt(row, col);
-            
-                    
-                    dbStore.TCKEDB_changeData(data,col,row);
+                    dbStore.TCKEDB_changeData(data,col,row); 
                 }                                        
                 catch (Exception e) {
                        repo.reportErr(e);

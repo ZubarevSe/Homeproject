@@ -34,6 +34,7 @@ public class TCEditDiagModel extends DefaultTableModel
             @Override
             public void tableChanged(TableModelEvent evt) {
                 String strVal = null;
+                int intVal = 0;
                 Object data = null;
                 int row = evt.getFirstRow();
                 int col = evt.getColumn();
@@ -48,8 +49,19 @@ public class TCEditDiagModel extends DefaultTableModel
                   //  String colName = getColumnName(col);
                     data = getValueAt(row, col);
             
+                    switch(col)
+                    {
+                        case 0:
+                        case 1:
+                            intVal = (int)data;
+                            dbStore.TCEDDB_changeData(intVal,row,col);
+                            break;
+                        case 2:
+                            strVal = (String)data;
+                            dbStore.TCEDDB_changeData(strVal, row, col);
+                            break;
+                    }
                     
-                    dbStore.TCEDDB_changeData(data,col,row);
                 }                                        
                 catch (Exception e) {
                        repo.reportErr(e);

@@ -26,7 +26,7 @@ public class Array
         try(FileInputStream tblKETypeTC = new FileInputStream("Connect Techcards to KE Type.txt"))
         {
             int k;
-            int i = 0,j = 0;
+            int j = 0;
             ArrayList table1_2 = new ArrayList();
             String str = "";
             do { 
@@ -45,7 +45,6 @@ public class Array
                     table1.add(table1_3);
                     table1_2.clear();
                     j = 0;
-                    i++;
                 }
             } while(k != -1);  
            
@@ -56,7 +55,7 @@ public class Array
          try(FileInputStream tblEditDiag = new FileInputStream("Edit Techcards Diagnoses.txt"))
         {
             int k;
-            int i = 0,j = 0;
+            int j = 0;
             ArrayList table2_2 = new ArrayList();
             String str = "";
             do { 
@@ -79,7 +78,6 @@ public class Array
                     table2.add(table2_3);
                     table2_2.clear();
                     j = 0;
-                    i++;
                 }
             } while(k != -1);  
            
@@ -122,11 +120,11 @@ public class Array
     public void TCKEDB_changeData(Object data,int i,int j)
     {
         table1.get(i).set(j, data);
-       // System.out.println(table1.get(i).get(j));
+      //  System.out.println(table1.get(i).get(j));
     }
      public void TCEDDB_changeData(Object data,int i,int j)
     {
         table2.get(i).set(j, data);
-       // System.out.println(table2.get(i).get(j));
+      //  System.out.println(table2.get(i).get(j));
     }
 }
