@@ -18,7 +18,7 @@ package zyfralab.homeproj;
 public class EditTCForm extends javax.swing.JFrame {
    
     private Reporter repo = null;
-    private Array atModel = null;
+    private TCActionModel atModel = null;
     private TCKETypeModel tckeModel = null;
     private TCEditDiagModel tcdeModel = null;
     
@@ -217,17 +217,18 @@ public class EditTCForm extends javax.swing.JFrame {
       /*  ImageIcon img = new ImageIcon("C:/Users/Nikita/Documents/GitHub/Homeproject/Homeproj/src/main/java/zyfralab/homeproj");
         setIconImage(img.getImage()); */
 
-        actTbl_Init();
         tcKETypeTbl_Init(); 
         tblEditDiag_Init();
+        actTbl_Init();
     }//GEN-LAST:event_formWindowOpened
     
     // Methods to work with Actions table
     private void actTbl_Init()
     {
-            atModel = new Array(); //(repo)
-      //   tblActions.setAutoCreateColumnsFromModel(false);
-      //   tblActions.setModel(atModel);        
+           atModel = new TCActionModel(repo);
+           atModel.initModel();
+           tblActions.setAutoCreateColumnsFromModel(false);
+           tblActions.setModel(atModel);        
     }
  
     private void tcKETypeTbl_Init()
