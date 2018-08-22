@@ -3,16 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doc2.managers;
+/*package doc2.managers;
 
 import doc2.data.ErrComboItem;
 import doc2.data.DBStoreAPI;
-import java.sql.ResultSet;
+import java.sql.ResultSet;*/
 //import java.sql.ResultSetMetaData;
+
+package zyfralab.homeproj;
+
 import javax.swing.DefaultComboBoxModel;
-//import javax.swing.JComboBox;
-//import javax.swing.event.ChangeEvent;
-//import javax.swing.event.ChangeListener;
+import javax.swing.JComboBox;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
@@ -22,9 +25,9 @@ import javax.swing.event.TableModelListener;
  */
 public class ErrComboModel extends DefaultComboBoxModel {
     private Reporter repo = null; 
-    private DBStoreAPI dbStore = null;
+    private Array dbStore = null;
     private ErrTblComboListener errTblListener = null;
-//    private ErrComboListener errComboListener = null;
+    private ErrComboListener errComboListener = null;
 
     
     public class ErrTblComboListener implements TableModelListener {
@@ -43,7 +46,7 @@ public class ErrComboModel extends DefaultComboBoxModel {
         }
     }    
 
-/*    
+   
     public class ErrComboListener implements ChangeListener {
         public ErrComboListener() {
             
@@ -55,13 +58,13 @@ public class ErrComboModel extends DefaultComboBoxModel {
         }
         
     }
-*/    
+   
         
 // Methods of MAIN class
     public ErrComboModel(Reporter rep) {
         repo = rep;
-        dbStore = new DBStoreAPI(repo);
-        dbStore.openConn();
+        dbStore = new Array(); // (repo);
+      //  dbStore.openConn();
     }
 
     public void initModel() {
@@ -88,8 +91,8 @@ public class ErrComboModel extends DefaultComboBoxModel {
 
         try {
             removeAllElements();
-            ResultSet rs = dbStore.getErrsDB();
-            addRows(rs);      
+          //  ResultSet rs = dbStore.getErrsDB();
+            addRows(/*rs*/);      
         }
         catch (Exception e) {
             repo.reportErr(e);
@@ -97,17 +100,17 @@ public class ErrComboModel extends DefaultComboBoxModel {
         }        
     }    
     
-    public void addRows(ResultSet rs) {
+    public void addRows(/*ResultSet rs*/) {
         int errID = 0;
         String errDesc = null;
         
         try {
-            if (rs==null)
+            if (dbStore==null)
                 return;
-            while (rs.next()) {
-                errID = rs.getInt("errid");
-                errDesc = rs.getString("errcode");
-                ErrComboItem newItem = new ErrComboItem(errID, errDesc);
+            while (dbStore.next()) {
+             //   errID = rs.getInt("errid");
+             //   errDesc = rs.getString("errcode");
+           //     ErrComboItem newItem = new ErrComboItem();
 
                 addElement(newItem);  
             }            

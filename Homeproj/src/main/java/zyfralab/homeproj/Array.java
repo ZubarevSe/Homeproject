@@ -23,7 +23,6 @@ public class Array
     public Array()
     {
         
-        
         try(FileInputStream tblKETypeTC = new FileInputStream("Connect Techcards to KE Type.txt"))
         {
             int k;

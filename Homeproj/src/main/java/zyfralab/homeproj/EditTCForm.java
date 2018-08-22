@@ -7,10 +7,13 @@
 package zyfralab.homeproj;
 
 import javax.swing.table.TableColumn;
- import javax.swing.ImageIcon;
- import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.*;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import java.util.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.*;
 
 
 
@@ -54,7 +57,7 @@ public class EditTCForm extends javax.swing.JFrame {
         tblEditDiag = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         FilterLabel = new javax.swing.JLabel();
-        errCombo = new javax.swing.JComboBox<>();
+        cmbErrCodes = new javax.swing.JComboBox<>();
 
         setLocation(new java.awt.Point(1, 150));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -178,10 +181,10 @@ public class EditTCForm extends javax.swing.JFrame {
 
         FilterLabel.setText("Filter by ErrCodes:");
 
-        errCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "smth", "smth(2)", "smth(3)", "smth(4)" }));
-        errCombo.addActionListener(new java.awt.event.ActionListener() {
+        cmbErrCodes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "smth", "qwerty", "Nikita", "asdfgh" }));
+        cmbErrCodes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                errComboActionPerformed(evt);
+                cmbErrCodesActionPerformed(evt);
             }
         });
 
@@ -205,7 +208,7 @@ public class EditTCForm extends javax.swing.JFrame {
                                 .addGap(84, 84, 84)
                                 .addComponent(FilterLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(errCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(cmbErrCodes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE))))
                 .addGap(19, 19, 19))
         );
@@ -217,7 +220,7 @@ public class EditTCForm extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(FilterLabel)
-                    .addComponent(errCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbErrCodes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
@@ -236,24 +239,25 @@ public class EditTCForm extends javax.swing.JFrame {
         // TODO add your handling code here:
       /*  ImageIcon img = new ImageIcon("C:/Users/Nikita/Documents/GitHub/Homeproject/Homeproj/src/main/java/zyfralab/homeproj");
         setIconImage(img.getImage()); */
-
+    //    errCmb_Init();
+    
         tcKETypeTbl_Init(); 
         tblEditDiag_Init();
         actTbl_Init();
     }//GEN-LAST:event_formWindowOpened
 
-    private void errComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_errComboActionPerformed
+    private void cmbErrCodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbErrCodesActionPerformed
         
-        String err = String.valueOf(errCombo.getSelectedItem());
+        String err = String.valueOf(cmbErrCodes.getSelectedItem());
         
         try {
-            diagTblSorter.setRowFilter(RowFilter.regexFilter(err));
+            diagTblSorter.setRowFilter(RowFilter.regexFilter(err, 3));
         } 
-        catch (Exception e){
+        catch (Exception e) {
             repo.reportErr(e);
         }
-    }//GEN-LAST:event_errComboActionPerformed
-    
+    }//GEN-LAST:event_cmbErrCodesActionPerformed
+
     
  
     private void tcKETypeTbl_Init()
@@ -261,17 +265,36 @@ public class EditTCForm extends javax.swing.JFrame {
         tckeModel = new TCKETypeModel(repo);
         tckeModel.initModel();
         tblKETypeTC.setAutoCreateColumnsFromModel(false);
-        tblKETypeTC.setModel(tckeModel);                
+        tblKETypeTC.setModel(tckeModel);  
     }
     private void tblEditDiag_Init()
-    {
-        tcdeModel = new TCEditDiagModel(repo);
-        tcdeModel.initModel();
+    { 
+        Array rs = new Array();
+        Object rows[][] = new Object[4][4];
+        int j = 0;
+        if (rs == null)
+                    return; 
+                while (rs.next())
+                {
+                    Object newRow[] = new Object[4];
+                    for (int i=0; i < 4; i++)
+                    {
+                           
+                            Object obj = rs.TCEDDB_getObject(i);
+                            newRow[i] = obj;
+                    }
+                    rows[j] = newRow;  
+                    j++;
+                }            
+        Object col[] = new Object[4];
+        TableModel model = new DefaultTableModel(rows, col); 
+      //  tcdeModel = new TCEditDiagModel(repo);
+      //  tcdeModel.initModel();
         tblEditDiag.setAutoCreateColumnsFromModel(false);
-        tblEditDiag.setModel(tcdeModel);  
+        tblEditDiag.setModel(model);  
             
-        diagTblSorter = new TableRowSorter<TableModel>(tcdeModel);
-        tblEditDiag.setRowSorter(diagTblSorter);
+        diagTblSorter = new TableRowSorter<TableModel>(model);
+        tblEditDiag.setRowSorter(diagTblSorter);    
     }
     private void actTbl_Init()
     {
@@ -280,38 +303,10 @@ public class EditTCForm extends javax.swing.JFrame {
         tblActions.setAutoCreateColumnsFromModel(false);
         tblActions.setModel(atModel);        
     }
-    
-   /* private void diagTbl_AddDiag()
-    {
-        tcdeModel.addDiag();
-        tcdeModel.fireTableDataChanged();
-        diagTbl_Set2Last();     
-    }
-    private void diagTbl_Set2Last() 
-    {
-        tblEditDiag.setCellSelectionEnabled(true);
-        int row = tblEditDiag.getRowCount()-1;
-        tblEditDiag.changeSelection(row, 1, false, false);
-//        tblEditDiag.requestFocus();
-        tblEditDiag.editCellAt(row, 1);
-        tblEditDiag.getEditorComponent().requestFocus();            
-        
-    }*/
-    
-    public static void main(String x[])
-    {
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                new EditTCForm(new Reporter()).setVisible(true);
-            }
-        });
-    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FilterLabel;
-    private javax.swing.JComboBox<String> errCombo;
+    private javax.swing.JComboBox<String> cmbErrCodes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

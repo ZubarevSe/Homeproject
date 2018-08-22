@@ -91,21 +91,22 @@ public class TCEditDiagModel extends DefaultTableModel
         public void updateTable() {       
             try {
                // ResultSet rs = dbStore.getTCKEDB();
+               Array metadata = dbStore;
                // ResultSetMetaData metaData = rs.getMetaData();
-                int numberOfColumns = dbStore.getEDDB_columns(); //metaData.getColumnCount();
+                int numberOfColumns = metadata.getEDDB_columns(); //metaData.getColumnCount();
                 if (columnNames==null) 
                     columnNames = new ArrayList();
 
                 // Get the column names
                 for (int column = 0; column < numberOfColumns; column++) {
-                    // columnNames.add(metaData.getColumnLabel(column + 1));
+                 //    columnNames.add(metaData.getColumnLabel(column + 1));
                 }
 
                 // Get all rows.
                 if (rows==null) 
                     rows = new ArrayList();  
                 
-                addRows(numberOfColumns);                
+                addRows(metadata, numberOfColumns);                
                 
             }
             catch (Exception e) {
@@ -148,8 +149,7 @@ public class TCEditDiagModel extends DefaultTableModel
         public Object getValueAt(int rowIndex, int columnIndex) {
             Object result = null; 
      
-            try
-            {
+            try {
                 Object curObj = null;
 
                 if (rows==null)
@@ -190,18 +190,18 @@ public class TCEditDiagModel extends DefaultTableModel
             addRows(rs, 8); */
         }
         
-        public void addRows(/*ResultSet rs,*/ int colCount)
+        public void addRows(/*ResultSet*/Array rs, int colCount)
         {           
             try {
-                if (dbStore==null)
+                if (rs == null)
                     return; 
-                while (dbStore.next())
+                while (rs.next())
                 {
                     ArrayList newRow = new ArrayList();
                     for (int i=0; i<colCount; i++)
                     {
                            
-                            Object obj = dbStore.TCEDDB_getObject(i);
+                            Object obj = rs.TCEDDB_getObject(i);
                             newRow.add(obj);
                     }
                     rows.add(newRow);  
